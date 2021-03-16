@@ -45,7 +45,7 @@ class AddDependentTextField extends React.Component<{ onDependentAdded: Function
   render() {
     return (
       <div>
-        <NameTextInput name={this.state.name} onNameChange={this.handleNameChange}></NameTextInput>
+        <NameTextInput name={this.state.name} onNameChange={this.handleNameChange} onEnter={this.addDependent}></NameTextInput>
         <button onClick={this.addDependent}>Add Dependent</button>
       </div>
     )

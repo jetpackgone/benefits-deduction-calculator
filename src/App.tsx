@@ -41,7 +41,6 @@ export class App extends React.Component<{}, { employeeName: string, dependentNa
         </header>
       </div>
     );
-  
   }
 }
 
