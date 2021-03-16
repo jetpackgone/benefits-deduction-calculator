@@ -19,6 +19,13 @@ Filling out employee name and dependent names will cause the benefits deduction 
 
 ## How to Run
 
+### Prerequisites
+
+Before running the parser or tests, complete the following:
+
+1. Install the latest [NodeJS/NPM](https://nodejs.org/en/).
+2. Run `npm install` to install dependencies.
+
 ### Local
 
 Use the following to run at `localhost:3000`:
