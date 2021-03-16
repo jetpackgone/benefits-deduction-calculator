@@ -64,21 +64,21 @@ describe('convertToMonthlyCost', () => {
   });
 });
 
-describe('calculateGrossSalary', () => {
+describe('calculateNetSalary', () => {
   test('deducts benefits cost from salary', () => {
-    let result = benefits.calculateGrossSalary(10000);
+    let result = benefits.calculateNetSalary(10000);
     expect(result).toBe(42000);
   });
 });
 
-describe('calculateGrossPaycheck', () => {
+describe('calculateNetPaycheck', () => {
   test('deducts benefits cost from paycheck whole number', () => {
-    let result = benefits.calculateGrossPaycheck(52);
+    let result = benefits.calculateNetPaycheck(52);
     expect(result).toBe(1998);
   });
 
   test('deducts benefits cost from paycheck rounded', () => {
-    let result = benefits.calculateGrossPaycheck(100);
+    let result = benefits.calculateNetPaycheck(100);
     expect(result).toBe(1996.15);
   });
 });

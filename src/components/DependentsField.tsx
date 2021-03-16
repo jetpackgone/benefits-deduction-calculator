@@ -56,20 +56,20 @@ export class DependentsField extends React.Component<{ names: string[], onDepend
   constructor(props: any) {
     super(props);
     this.handleDependentAdded = this.handleDependentAdded.bind(this);
-    this.removeDependent = this.removeDependent.bind(this);
+    this.handleDependentRemoved = this.handleDependentRemoved.bind(this);
   }
 
   handleDependentAdded(newName: string) {
     this.props.onDependentNamesUpdated([...this.props.names, newName]);
   }
 
-  removeDependent(name: string) {
+  handleDependentRemoved(name: string) {
     this.props.onDependentNamesUpdated(this.props.names.filter(x => x !== name));
   }
 
   render() {
     const names = this.props.names.map(name => {
-      return <DependentsListItem name={name} onDependentRemoved={this.removeDependent}></DependentsListItem>
+      return <DependentsListItem name={name} onDependentRemoved={this.handleDependentRemoved}></DependentsListItem>
     });
     return (
       <div>

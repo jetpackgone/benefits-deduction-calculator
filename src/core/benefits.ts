@@ -31,10 +31,36 @@ export function convertToPerPaycheckCost(annualCost: number): number {
   return Math.round(annualCost / 26 * 100) / 100;
 }
 
-export function calculateGrossSalary(annualBenefitsCost: number): number {
-  return 2000 * 26 - annualBenefitsCost;
+/**
+ * Calculates net salary based on annual benefits cost.
+ * @param annualBenefitsCost 
+ * @returns Net salary.
+ */
+export function calculateNetSalary(annualBenefitsCost: number): number {
+  return getGrossSalary() - annualBenefitsCost;
 }
 
-export function calculateGrossPaycheck(annualBenefitsCost: number): number {
-  return 2000 - convertToPerPaycheckCost(annualBenefitsCost);
+/**
+ * Calculates net paycheck based on annual benefits cost.
+ * @param annualBenefitsCost 
+ * @returns Net paycheck.
+ */
+export function calculateNetPaycheck(annualBenefitsCost: number): number {
+  return getGrossPaycheck() - convertToPerPaycheckCost(annualBenefitsCost);
+}
+
+/**
+ * Gross salary before deductions.
+ * @returns Gross salary.
+ */
+export function getGrossSalary(): number {
+  return getGrossPaycheck() * 26;
+}
+
+/**
+ * Gross paycheck before deductions.
+ * @returns Gross paycheck.
+ */
+export function getGrossPaycheck(): number {
+  return 2000;
 }

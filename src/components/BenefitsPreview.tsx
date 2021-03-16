@@ -8,21 +8,28 @@ export class BenefitsPreview extends React.Component <{ employeeName: string, de
       <div>
         <h2>Benefits Deduction Preview</h2>
         <table>
-          <tr>
-            <th></th>
-            <th>Annually</th>
-            <th>Per Paycheck</th>
-          </tr>
-          <tr>
-            <td>Deduction</td>
-            <td>${annualCost}</td>
-            <td>${benefits.convertToPerPaycheckCost(annualCost)}</td>
-          </tr>
-          <tr>
-            <td>Gross Salary</td>
-            <td>${benefits.calculateGrossSalary(annualCost)}</td>
-            <td>${benefits.calculateGrossPaycheck(annualCost)}</td>
-          </tr>
+          <tbody>
+            <tr>
+              <th></th>
+              <th>Annually</th>
+              <th>Per Paycheck</th>
+            </tr>
+            <tr>
+              <td>Gross</td>
+              <td>${benefits.getGrossSalary()}</td>
+              <td>${benefits.getGrossPaycheck()}</td>
+            </tr>
+            <tr>
+              <td>Deduction</td>
+              <td>${annualCost}</td>
+              <td>${benefits.convertToPerPaycheckCost(annualCost)}</td>
+            </tr>
+            <tr>
+              <td>Net Pay</td>
+              <td>${benefits.calculateNetSalary(annualCost)}</td>
+              <td>${benefits.calculateNetPaycheck(annualCost)}</td>
+            </tr>
+          </tbody>
         </table>
       </div>
     );
