@@ -7,9 +7,14 @@
 export function calculateAnnualCost(employeeName: string, dependentNames: string[]): number {
   const employeeCost = 1000;
   const dependentCost = 500;
-  let cost = employeeName[0] === 'A' ? employeeCost * 0.9 : employeeCost
+  let cost = 0;
+  if (!!employeeName) {
+    cost = employeeName[0].toLowerCase() === 'a' ? employeeCost * 0.9 : employeeCost
+  }
   dependentNames.forEach(name => {
-      cost += name[0] === 'A' ? dependentCost * 0.9 : dependentCost
+      if (!!name) {
+        cost += name[0].toLowerCase() === 'a' ? dependentCost * 0.9 : dependentCost
+      }
   });
   return cost;
 }

@@ -30,6 +30,16 @@ describe('calculateAnnualCost', () => {
     let result = benefits.calculateAnnualCost('Bob', ['Arthur', 'Charlie']);
     expect(result).toBe(1950);
   });
+
+  test('empty employee name has 0 cost', () => {
+    let result = benefits.calculateAnnualCost('', []);
+    expect(result).toBe(0);
+  });
+
+  test('empty dependent name has 0 cost', () => {
+    let result = benefits.calculateAnnualCost('Bob', ['']);
+    expect(result).toBe(1000);
+  });
 });
 
 describe('convertToMonthlyCost', () => {
