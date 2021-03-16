@@ -17,4 +17,18 @@ A simple web application that calculates the employee benefit deductions employe
 
 ## How to Run
 
-TODO
+### Local
+
+Use the following to run at `localhost:3000`:
+
+```
+npm start
+```
+
+### Tests
+
+Run tests with the following:
+
+```
+npm test
+```
