@@ -15,6 +15,8 @@ A simple web application that calculates the employee benefit deductions employe
 - All employees are paid $2000 per paycheck before deductions
 - There are 26 paychecks in a year
 
+Filling out employee name and dependent names will cause the benefits deduction preview to update and display the gross, deduction, and net pay on an annual vs per-paycheck basis.
+
 ## How to Run
 
 ### Local

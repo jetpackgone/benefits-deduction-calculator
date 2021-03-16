@@ -3,13 +3,14 @@ import './App.css';
 import { BenefitsPreview } from './components/BenefitsPreview';
 import { DependentsField } from './components/DependentsField';
 import { EmployeeField } from './components/EmployeeField';
+import { Dependent } from './models/dependent';
 
-export class App extends React.Component<{}, { employeeName: string, dependentNames: string[] }> {
+export class App extends React.Component<{}, { employeeName: string, dependents: Dependent[] }> {
   constructor(props: any) {
     super(props);
     this.state = {
-      employeeName: 'test',
-      dependentNames: []
+      employeeName: '',
+      dependents: []
     }
     this.updateEmployeeName = this.updateEmployeeName.bind(this);
     this.updateDependentNames = this.updateDependentNames.bind(this);
@@ -21,9 +22,9 @@ export class App extends React.Component<{}, { employeeName: string, dependentNa
     });
   }
 
-  updateDependentNames(newDependentNames: string[]) {
+  updateDependentNames(newDependents: Dependent[]) {
     this.setState({
-      dependentNames: newDependentNames
+      dependents: newDependents
     });
   }
 
@@ -35,9 +36,11 @@ export class App extends React.Component<{}, { employeeName: string, dependentNa
           <p>
             Enter your information below to preview your benefits deduction costs.
           </p>
-          <EmployeeField name={this.state.employeeName} onEmployeeNameUpdated={this.updateEmployeeName}></EmployeeField>
-          <DependentsField names={this.state.dependentNames} onDependentNamesUpdated={this.updateDependentNames}></DependentsField>
-          <BenefitsPreview employeeName={this.state.employeeName} dependentNames={this.state.dependentNames}></BenefitsPreview>
+          <div>
+            <EmployeeField name={this.state.employeeName} onEmployeeNameUpdated={this.updateEmployeeName}></EmployeeField>
+            <DependentsField dependents={this.state.dependents} onDependentNamesUpdated={this.updateDependentNames}></DependentsField>
+          </div>
+          <BenefitsPreview employeeName={this.state.employeeName} dependentNames={this.state.dependents.map(x => x.name)}></BenefitsPreview>
         </header>
       </div>
     );

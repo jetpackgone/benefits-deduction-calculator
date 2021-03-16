@@ -1,29 +1,31 @@
 import React from "react";
+import { Dependent } from "../models/dependent";
 import { NameTextInput } from "./NameTextInput";
 
-class DependentsListItem extends React.Component <{ name: string, onDependentRemoved: Function }, {}> {
+class DependentsListItem extends React.Component <{ data: Dependent, onDependentRemoved: Function }, {}> {
   constructor(props: any) {
     super(props);
     this.removeDependent = this.removeDependent.bind(this);
   }
 
   removeDependent() {
-    this.props.onDependentRemoved(this.props.name);
+    this.props.onDependentRemoved(this.props.data.id);
   }
 
   render() {
     return (<li>
-      {this.props.name}
+      {this.props.data.name}
       <button onClick={this.removeDependent}>Remove</button>
     </li>);
   }
 }
 
-class AddDependentTextField extends React.Component<{ onDependentAdded: Function }, { name: string }> {
+class AddDependentTextField extends React.Component<{ onDependentAdded: Function }, { name: string, isInvalid: boolean }> {
   constructor(props: any) {
     super(props);
     this.state = {
-      name: ''
+      name: '',
+      isInvalid: false
     }
     this.addDependent = this.addDependent.bind(this);
     this.handleNameChange = this.handleNameChange.bind(this);
@@ -31,15 +33,26 @@ class AddDependentTextField extends React.Component<{ onDependentAdded: Function
 
   handleNameChange(newName: string) {
     this.setState({
-      name: newName
+      name: newName,
+      isInvalid: !newName
     });
   }
 
   addDependent(event: any) {
-    this.props.onDependentAdded(this.state.name);
-    this.setState({
-      name: ''
-    });
+    if (!this.state.name) {
+      this.setState({
+        isInvalid: true
+      });
+    } else {
+      let newDependent: Dependent = {
+        id: Math.random() * 1000000 + 1,
+        name: this.state.name
+      };
+      this.props.onDependentAdded(newDependent);
+      this.setState({
+        name: ''
+      });
+    }
   }
 
   render() {
@@ -47,39 +60,40 @@ class AddDependentTextField extends React.Component<{ onDependentAdded: Function
       <div>
         <NameTextInput name={this.state.name} onNameChange={this.handleNameChange} onEnter={this.addDependent}></NameTextInput>
         <button onClick={this.addDependent}>Add Dependent</button>
+        {this.state.isInvalid ? 'Dependent name cannot be empty': ''}
       </div>
     )
   }
 }
 
-export class DependentsField extends React.Component<{ names: string[], onDependentNamesUpdated: Function }, {}> {
+export class DependentsField extends React.Component<{ dependents: Dependent[], onDependentNamesUpdated: Function }, {}> {
   constructor(props: any) {
     super(props);
     this.handleDependentAdded = this.handleDependentAdded.bind(this);
     this.handleDependentRemoved = this.handleDependentRemoved.bind(this);
   }
 
-  handleDependentAdded(newName: string) {
-    this.props.onDependentNamesUpdated([...this.props.names, newName]);
+  handleDependentAdded(newDependent: Dependent) {
+    this.props.onDependentNamesUpdated([...this.props.dependents, newDependent]);
   }
 
-  handleDependentRemoved(name: string) {
-    this.props.onDependentNamesUpdated(this.props.names.filter(x => x !== name));
+  handleDependentRemoved(dependentId: number) {
+    this.props.onDependentNamesUpdated(this.props.dependents.filter(x => x.id !== dependentId));
   }
 
   render() {
-    const names = this.props.names.map(name => {
-      return <DependentsListItem name={name} onDependentRemoved={this.handleDependentRemoved}></DependentsListItem>
+    const names = this.props.dependents.map(dependent => {
+      return <DependentsListItem key={dependent.id} data={dependent} onDependentRemoved={this.handleDependentRemoved}></DependentsListItem>
     });
     return (
       <div>
-        Dependents Names
+        <h3>Dependent Names</h3>
         <div>
+          <AddDependentTextField onDependentAdded={this.handleDependentAdded}></AddDependentTextField>
           {names.length === 0 ? "No dependents specified." : ""}
           <ul>
             {names}
           </ul>
-          <AddDependentTextField onDependentAdded={this.handleDependentAdded}></AddDependentTextField>
         </div>
       </div>
     );

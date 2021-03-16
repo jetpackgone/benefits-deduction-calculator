@@ -5,11 +5,11 @@ describe('DependentsField', () => {
     test('calls update handler with new dependent added', () => {
       const onDependentNamesUpdatedMock = jest.fn(names => {});
       const dependentsField = new DependentsField({
-        names: [],
+        dependents: [],
         onDependentNamesUpdated: onDependentNamesUpdatedMock
       });
-      dependentsField.handleDependentAdded('Bob')
-      expect(onDependentNamesUpdatedMock).toHaveBeenCalledWith(['Bob']);
+      dependentsField.handleDependentAdded({ id: 1, name: 'Bob'})
+      expect(onDependentNamesUpdatedMock).toHaveBeenCalledWith([{ id: 1, name: 'Bob'}]);
     });
   });
 
@@ -17,10 +17,10 @@ describe('DependentsField', () => {
     test('calls update handler with dependent removed', () => {
       const onDependentNamesUpdatedMock = jest.fn(names => {});
       const dependentsField = new DependentsField({
-        names: ['Bob'],
+        dependents: [{ id: 1, name: 'Bob'}],
         onDependentNamesUpdated: onDependentNamesUpdatedMock
       });
-      dependentsField.handleDependentRemoved('Bob')
+      dependentsField.handleDependentRemoved(1)
       expect(onDependentNamesUpdatedMock).toHaveBeenCalledWith([]);
     });
   });
